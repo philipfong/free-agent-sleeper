@@ -17,11 +17,17 @@ def add_drop(free_agent, abbrev, droppable)
     find('a[title="Add Player"]').click
     page.should have_text('Select a player to drop')
     find('td.player', :text => abbrev).find(:xpath, '..').find('button.add-drop-trigger-btn').click
-    find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable])#.click #Uncomment to really make work. Otherwise, leave alone for testing.
+    if page.has_css?('#submit-add-drop-button[value^="Create claim"]')
+      puts 'Waivers have not cleared'
+    else
+      find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable])#.click #Uncomment to really make work. Otherwise, leave alone for testing.
+    end
     sleep 5
     puts 'Congratulations! Add successful.'
   elsif page.has_text?('No players found.')
-    puts 'Someone else probably got him.'
+    puts 'Sorry, someone else probably got %s.' % free_agent
+  else
+    puts 'Something else went wrong.'
   end
 end
 
