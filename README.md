@@ -1,3 +1,9 @@
+<!--
+  Title: Free Agent Sleeper for Fantasy Football Leagues
+  Description: Automatically add free agents in fantasy football leagues.  Written in Ruby leveraging Selenium Webdriver.
+  Author: Philip Fong
+  -->
+
 # free-agent-sleeper
 Automate adding of free agents in fantasy football leagues.
 
