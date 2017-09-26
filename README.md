@@ -10,8 +10,7 @@ This was developed to automate the adding and dropping of players on a fantasy f
 3. Install and run bundler gem:
 * `gem install bundler`
 * `bundle install`
-4. Install ChromeDriver and add to path
-5. Modify your script to log into fantasy sites along with adding/dropping players.
-6. From the root of the repository folder, run RSpec: `rspec spec\yahoo\add_free_agent.rb`
+4. Modify your script to log into fantasy sites along with adding/dropping players.
+5. From the root of the repository folder, run RSpec: `rspec spec\yahoo\add_free_agent.rb`
 
 It is strongly recommended that you run RSpec via cron job or Windows task scheduler.  This spec does not schedule execution on its own.
