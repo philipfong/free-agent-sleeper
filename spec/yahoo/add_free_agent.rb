@@ -21,9 +21,9 @@ def add_drop(free_agent, abbrev, droppable)
       puts 'Waivers have not cleared'
     else
       find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable])#.click #Uncomment to really make work. Otherwise, leave alone for testing.
+      puts 'Congratulations! Add successful.'
+      sleep 5
     end
-    sleep 5
-    puts 'Congratulations! Add successful.'
   elsif page.has_text?('No players found.')
     puts 'Sorry, someone else probably got %s.' % free_agent
   else
