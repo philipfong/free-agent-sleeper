@@ -13,10 +13,10 @@ end
 
 def add_drop(free_agent, droppable)
   find('#lastNameInput').set(free_agent)
-  find('#lastNameSubmit').click
+  click_button('Search')
   page.should have_css('.playertablePlayerName', :count => 1)
   if page.has_link?(free_agent) && page.has_link?('Add')
-    find_link('Add').click
+    click_link('Add')
     find('td.playertablePlayerName', :text => droppable).find(:xpath, '..').find('.playertableCheckbox input[type="checkbox"]').click
     click_button('Submit Roster')
     click_button('Confirm')

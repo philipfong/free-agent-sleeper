@@ -5,17 +5,15 @@ def login_yahoo(username, password)
   find('#login-signin').click
   find('#login-passwd').set(password)
   find('#login-signin').click
-  if page.has_link?('Cancel') # Sometimes Yahoo! will ask to secure your account, so we skip this.
-    find_link('Cancel').click
-  end
+  click_link('Cancel') if page.has_link?('Cancel') # Sometimes Yahoo will ask to secure your account, so we skip this.
 end
 
 def add_drop(free_agent, abbrev, droppable)
   find('#playersearchtext').set(free_agent)
-  find('.Btn-primary[value="Search"]').click
+  click_button('Search')
   page.should have_css('.First.Last', :count => 1)
-  if page.has_link?(free_agent) && page.has_css?('a[title="Add Player"]')
-    find('a[title="Add Player"]').click
+  if page.has_link?(free_agent) && page.has_link?('Add Player')
+    click_link('Add Player')
     page.should have_text('Select a player to drop')
     find('td.player', :text => abbrev).find(:xpath, '..').find('button.add-drop-trigger-btn').click
     if page.has_css?('#submit-add-drop-button[value^="Create claim"]')
