@@ -20,7 +20,7 @@ def add_drop(free_agent, droppable)
     find('td.playertablePlayerName', :text => droppable).find(:xpath, '..').find('.playertableCheckbox input[type="checkbox"]').click
     find('input[type="button"][value="Submit Roster"]').click
     find('input[value="Confirm"]').click
-    puts 'Congratulations! Your free agent was added.'
+    puts 'Congratulations! %s was added.' % free_agent
     sleep 10
   else
     puts 'Sorry, someone else probably got %s.' % free_agent

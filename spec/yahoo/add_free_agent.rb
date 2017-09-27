@@ -22,7 +22,7 @@ def add_drop(free_agent, abbrev, droppable)
       puts 'Waivers have not cleared'
     else
       find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable])#.click
-      puts 'Congratulations! Add successful.'
+      puts 'Congratulations! %s was added.' % free_agent
       sleep 10
     end
   else
