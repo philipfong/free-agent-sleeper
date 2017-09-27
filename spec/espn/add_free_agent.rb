@@ -15,11 +15,11 @@ def add_drop(free_agent, droppable)
   find('#lastNameInput').set(free_agent)
   find('#lastNameSubmit').click
   page.should have_css('.playertablePlayerName', :count => 1)
-  if page.has_link?(free_agent) && page.has_css?('a[title="Add"]')
-    find('a[title="Add"]').click
+  if page.has_link?(free_agent) && page.has_link?('Add')
+    find_link('Add').click
     find('td.playertablePlayerName', :text => droppable).find(:xpath, '..').find('.playertableCheckbox input[type="checkbox"]').click
-    find('input[type="button"][value="Submit Roster"]').click
-    find('input[value="Confirm"]').click
+    click_button('Submit Roster')
+    click_button('Confirm')
     puts 'Congratulations! %s was added.' % free_agent
     sleep 10
   else
