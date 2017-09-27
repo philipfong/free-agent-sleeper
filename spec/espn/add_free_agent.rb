@@ -14,27 +14,33 @@ end
 def add_drop(free_agent, droppable)
   find('#lastNameInput').set(free_agent)
   find('#lastNameSubmit').click
-  if page.has_css?('a[title="Claim"]')
-    puts 'It looks like waivers have not cleared'
-  elsif page.has_text?('No players were found')
-    puts 'Player is unavailable. Someone may have picked him up.'
-  else
-    find('a[title="Add Player"]').click # I am not sure yet if this is what the button next to free agents is titled
+  page.should have_css('.playertablePlayerName', :count => 1)
+  if page.has_link?(free_agent) && page.has_css?('a[title="Add"]')
+    find('a[title="Add"]').click
     find('td.playertablePlayerName', :text => droppable).find(:xpath, '..').find('.playertableCheckbox input[type="checkbox"]').click
     find('input[type="button"][value="Submit Roster"]').click
     find('input[value="Confirm"]').click
     puts 'Congratulations! Your free agent was added.'
     sleep 10
+  else
+    puts 'Sorry, someone else probably got %s.' % free_agent
   end
 end
 
 feature "Add free agents to Fantasy Football league" do
 
-  scenario "Log in and add/drop players" do
-    espn_players = 'http://games.espn.com/ffl/freeagency?leagueId=442780&teamId=7&seasonId=2017'
+  background do
+    espn_players = 'http://games.espn.com/ffl/freeagency?leagueId=442780&teamId=7&seasonId=2017' # Replace with Players page of your league
     visit espn_players
     login_espn('taco', 'passwordistaco') # Replace with your username and password
-    add_drop('Chris Johnson', 'Cooper Kupp')
+  end
+
+  after(:each) do
+    Capybara.current_session.driver.quit
+  end
+
+  scenario "Log in and add/drop players" do
+    add_drop('Jared Goff', 'Carson Wentz')
   end
 
 end

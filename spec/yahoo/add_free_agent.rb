@@ -13,30 +13,35 @@ end
 def add_drop(free_agent, abbrev, droppable)
   find('#playersearchtext').set(free_agent)
   find('.Btn-primary[value="Search"]').click
-  if page.has_link?(free_agent)
+  if page.has_link?(free_agent) && page.has_css('a[title="Add Player"]')
     find('a[title="Add Player"]').click
     page.should have_text('Select a player to drop')
     find('td.player', :text => abbrev).find(:xpath, '..').find('button.add-drop-trigger-btn').click
     if page.has_css?('#submit-add-drop-button[value^="Create claim"]')
       puts 'Waivers have not cleared'
     else
-      find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable])#.click #Uncomment to really make work. Otherwise, leave alone for testing.
+      find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable]).click
       puts 'Congratulations! Add successful.'
-      sleep 5
+      sleep 10
     end
-  elsif page.has_text?('No players found.')
-    puts 'Sorry, someone else probably got %s.' % free_agent
   else
-    puts 'Something else went wrong.'
+    puts 'Sorry, someone else probably got %s.' % free_agent
   end
 end
 
 feature "Add free agents to Fantasy Football league" do
 
-  scenario "Log in and add/drop players" do
-    yahoo_players = 'https://football.fantasysports.yahoo.com/f1/726755/players'
+  background do
+    yahoo_players = 'https://football.fantasysports.yahoo.com/f1/726755/players' # Replace with Players page of your league
     visit yahoo_players
     login_yahoo('taco', 'passwordistaco') # Replace with your username and password
+  end
+
+  after(:each) do
+    Capybara.current_session.driver.quit
+  end
+
+  scenario "Log in and add/drop players" do
     add_drop('Chris Johnson', 'S. Perine', 'Samaje Perine')
   end
 
