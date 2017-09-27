@@ -1,6 +1,6 @@
 <!--
   Title: Free Agent Sleeper for Fantasy Football Leagues
-  Description: Automatically add free agents in fantasy football leagues.  Written in Ruby leveraging Selenium Webdriver.
+  Description: Automatically add free agents in fantasy football leagues. Written in Ruby leveraging Selenium Webdriver.
   Author: Philip Fong
   -->
 
@@ -19,4 +19,8 @@ This was developed to automate the adding and dropping of players on a fantasy f
 4. Modify your script to log into fantasy sites along with adding/dropping players.
 5. Run RSpec: `rspec spec\yahoo\add_free_agent.rb`
 
-It is strongly recommended that you run RSpec via cron job or Windows task scheduler.  This spec does not schedule execution on its own.
+It is strongly recommended to run RSpec via cron job or scheduled Windows Task.  This spec does not schedule execution on its own. A Windows Task would look something like:
+
+* Start a program: `C:\Ruby22-x64\bin\rspec.bat`
+* With arguments: `\spec\yahoo\add_free_agent.rb > C:\Logs\free-agent-sleeper.log`
+* Start in: `<root directory of repo>`
