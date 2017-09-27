@@ -13,14 +13,15 @@ end
 def add_drop(free_agent, abbrev, droppable)
   find('#playersearchtext').set(free_agent)
   find('.Btn-primary[value="Search"]').click
-  if page.has_link?(free_agent) && page.has_css('a[title="Add Player"]')
+  page.should have_css('.First.Last', :count => 1)
+  if page.has_link?(free_agent) && page.has_css?('a[title="Add Player"]')
     find('a[title="Add Player"]').click
     page.should have_text('Select a player to drop')
     find('td.player', :text => abbrev).find(:xpath, '..').find('button.add-drop-trigger-btn').click
     if page.has_css?('#submit-add-drop-button[value^="Create claim"]')
       puts 'Waivers have not cleared'
     else
-      find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable]).click
+      find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable])#.click
       puts 'Congratulations! Add successful.'
       sleep 10
     end
@@ -42,7 +43,7 @@ feature "Add free agents to Fantasy Football league" do
   end
 
   scenario "Log in and add/drop players" do
-    add_drop('Chris Johnson', 'S. Perine', 'Samaje Perine')
+    add_drop('Robby Anderson', 'A. Kamara', 'Alvin Kamara')
   end
 
 end
