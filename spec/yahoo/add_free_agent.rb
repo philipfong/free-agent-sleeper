@@ -21,7 +21,7 @@ def add_drop(free_agent, abbrev, droppable)
     if page.has_css?('#submit-add-drop-button[value^="Create claim"]')
       puts 'Waivers have not cleared'
     else
-      find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable])#.click
+      find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable]).click
       puts 'Congratulations! %s was added.' % free_agent
       sleep 10
     end
