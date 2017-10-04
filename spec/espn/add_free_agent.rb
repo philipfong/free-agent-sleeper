@@ -44,8 +44,13 @@ feature "Add free agents to Fantasy Football league" do
     Capybara.current_session.driver.quit
   end
 
-  scenario "Log in and add/drop players" do
+  scenario "Log in and add/drop player" do
     add_drop('Jared Goff', 'Carson Wentz') # Replace with players you want to add and drop
+    # Do not insert additional calls to add_drop() -- Create new scenarios for more players
+  end
+
+  scenario "Log in and add/drop another player" do
+    add_drop('Dalvin Cook', 'Alex Collins') # Replace with players you want to add and drop
   end
 
 end
