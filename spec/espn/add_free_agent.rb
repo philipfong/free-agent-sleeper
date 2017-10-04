@@ -1,7 +1,7 @@
 require 'spec_helper'
 
 def login_espn(username, password)
-  click_link('Log In')
+  click_link('Log In') # Comment this line out if your ESPN league is private
   sleep 3
   within_frame 'disneyid-iframe' do
     find('input[type="email"]').set(username)
@@ -19,6 +19,8 @@ def add_drop(free_agent, droppable)
     click_link('Add')
     find('td.playertablePlayerName', :text => droppable).find(:xpath, '..').find('.playertableCheckbox input[type="checkbox"]').click
     click_button('Submit Roster')
+    page.should have_text('Drop %s' % droppable)
+    page.should have_text('Add %s' % free_agent)
     click_button('Confirm')
     puts 'Congratulations! %s was added.' % free_agent
     sleep 10
