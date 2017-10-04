@@ -10,6 +10,7 @@ end
 
 def add_drop(free_agent, abbrev, droppable)
   find('#playersearchtext').set(free_agent)
+  sleep 3
   click_button('Search')
   page.should have_css('.First.Last', :count => 1)
   if page.has_link?(free_agent) && page.has_link?('Add Player')
