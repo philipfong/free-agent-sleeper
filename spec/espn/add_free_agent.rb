@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+ESPN_USERNAME = 'taco'
+ESPN_PASSWORD = 'passwordistaco'
+ESPN_PLAYERS = 'http://games.espn.com/ffl/freeagency?leagueId=442780&teamId=7&seasonId=2017' # Replace with Players page of your league
+
 def login_espn(username, password)
   click_link('Log In') # Comment this line out if your ESPN league is private
   sleep 3
@@ -32,9 +36,8 @@ end
 feature "Add free agents to Fantasy Football league" do
 
   background do
-    espn_players = 'http://games.espn.com/ffl/freeagency?leagueId=442780&teamId=7&seasonId=2017' # Replace with Players page of your league
-    visit espn_players
-    login_espn('taco', 'passwordistaco') # Replace with your username and password
+    visit ESPN_PLAYERS
+    login_espn(ESPN_USERNAME, ESPN_PASSWORD)
   end
 
   after(:each) do
@@ -42,7 +45,7 @@ feature "Add free agents to Fantasy Football league" do
   end
 
   scenario "Log in and add/drop players" do
-    add_drop('Jared Goff', 'Carson Wentz')
+    add_drop('Jared Goff', 'Carson Wentz') # Replace with players you want to add and drop
   end
 
 end

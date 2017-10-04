@@ -1,5 +1,9 @@
 require 'spec_helper'
 
+YAHOO_USERNAME = 'taco'
+YAHOO_PASSWORD = 'passwordistaco'
+YAHOO_PLAYERS = 'https://football.fantasysports.yahoo.com/f1/726755/players' # Replace with Players page of your league
+
 def login_yahoo(username, password)
   find('#login-username').set(username)
   find('#login-signin').click
@@ -32,9 +36,8 @@ end
 feature "Add free agents to Fantasy Football league" do
 
   background do
-    yahoo_players = 'https://football.fantasysports.yahoo.com/f1/726755/players' # Replace with Players page of your league
-    visit yahoo_players
-    login_yahoo('taco', 'passwordistaco') # Replace with your username and password
+    visit YAHOO_PLAYERS
+    login_yahoo(YAHOO_USERNAME, YAHOO_PASSWORD) # Replace with your username and password
   end
 
   after(:each) do
@@ -42,7 +45,7 @@ feature "Add free agents to Fantasy Football league" do
   end
 
   scenario "Log in and add/drop players" do
-    add_drop('Robby Anderson', 'A. Kamara', 'Alvin Kamara')
+    add_drop('Robby Anderson', 'A. Kamara', 'Alvin Kamara') # Replace with players you want to add and drop
   end
 
 end
