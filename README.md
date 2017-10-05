@@ -24,5 +24,5 @@ This was developed to automate the adding and dropping of players on a fantasy f
 This spec does not schedule execution on its own. It is recommended that you run RSpec via cron job or scheduled Windows Task.  A Windows Task would look something like:
 
 * Start a program: `C:\Ruby22-x64\bin\rspec.bat`
-* With arguments: `\spec\yahoo\add_free_agent.rb > free-agent-sleeper.log`
+* With arguments: `spec\yahoo\add_free_agent.rb > free-agent-sleeper.log`
 * Start in: `<root directory of repo>`
