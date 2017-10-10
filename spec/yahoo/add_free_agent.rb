@@ -10,6 +10,7 @@ def login_yahoo(username, password)
   find('#login-passwd').set(password)
   find('#login-signin').click
   click_link('Cancel') if page.has_link?('Cancel') # Sometimes Yahoo will ask to secure your account, so we skip this.
+  find('.skip-now').click if page.has_text?('secure my account') # Sometimes Yahoo will ask to add a phone number, so we skip this.
 end
 
 def add_drop(free_agent, abbrev, droppable)
