@@ -5,6 +5,7 @@ YAHOO_PASSWORD = 'passwordistaco'
 YAHOO_PLAYERS = 'https://football.fantasysports.yahoo.com/f1/726755/players' # Replace with Players page of your league
 
 def login_yahoo(username, password)
+  click_link('Sign in') if page.has_link?('Sign in')
   find('#login-username').set(username)
   find('#login-signin').click
   find('#login-passwd').set(password)
