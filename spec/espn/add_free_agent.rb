@@ -2,14 +2,12 @@ require 'spec_helper'
 
 ESPN_USERNAME = 'taco'
 ESPN_PASSWORD = 'passwordistaco'
-ESPN_PLAYERS = 'http://games.espn.com/ffl/freeagency?leagueId=442780&teamId=7&seasonId=2017' # Replace with Players page of your league
+ESPN_PLAYERS = 'http://games.espn.com/ffl/freeagency?leagueId=442780&teamId=7&seasonId=2018' # Replace with Players page of your league
 
 def login_espn(username, password)
-  click_link('Log In') if page.has_link?('Log In')
-  sleep 3
   within_frame 'disneyid-iframe' do
-    find('input[type="email"]').set(username)
-    find('input[type="password"]').set(password)
+    find('input[type="email"][placeholder="Username or Email Address"]').set(username)
+    find('input[type="password"][placeholder="Password (case sensitive)"]').set(password)
     click_button('Log In')
     page.should_not have_css('.loading-indicator')
   end  
@@ -19,7 +17,9 @@ def add_drop(free_agent, droppable)
   find('#lastNameInput').set(free_agent)
   click_button('Search')
   page.should have_css('.playertablePlayerName', :count => 1)
-  if page.has_link?(free_agent) && page.has_link?('Add')
+  if page.has_link?('Claim')
+    puts 'Waivers have not cleared yet'
+  elsif page.has_link?(free_agent) && page.has_link?('Add')
     click_link('Add')
     find('td.playertablePlayerName', :text => droppable).find(:xpath, '..').find('.playertableCheckbox input[type="checkbox"]').click
     click_button('Submit Roster')
@@ -45,12 +45,12 @@ feature "Add free agents to Fantasy Football league" do
   end
 
   scenario "Log in and add/drop player" do
-    add_drop('Jared Goff', 'Carson Wentz') # Replace with players you want to add and drop
+    add_drop('Joe Flacco', 'Deshaun Watson') # Replace with players you want to add and drop
     # Do not insert additional calls to add_drop() -- Create new scenarios for more players
   end
 
   scenario "Log in and add/drop another player" do
-    add_drop('Dalvin Cook', 'Alex Collins') # Replace with players you want to add and drop
+    add_drop('Leonard Fournette', 'Alex Collins') # Replace with players you want to add and drop
   end
 
 end
