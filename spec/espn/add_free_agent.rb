@@ -5,6 +5,10 @@ ESPN_PASSWORD = 'passwordistaco'
 ESPN_PLAYERS = 'http://games.espn.com/ffl/freeagency?leagueId=442780&teamId=7&seasonId=2018' # Replace with Players page of your league
 
 def login_espn(username, password)
+  click_link('Log In')
+  within('.global-user-container') do
+    click_link('Log In')
+  end
   within_frame 'disneyid-iframe' do
     find('input[type="email"][placeholder="Username or Email Address"]').set(username)
     find('input[type="password"][placeholder="Password (case sensitive)"]').set(password)
