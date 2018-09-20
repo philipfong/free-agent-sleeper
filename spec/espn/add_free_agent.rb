@@ -5,6 +5,7 @@ ESPN_PASSWORD = 'passwordistaco'
 ESPN_PLAYERS = 'http://games.espn.com/ffl/freeagency?leagueId=442780&teamId=7&seasonId=2018' # Replace with Players page of your league
 
 def login_espn(username, password)
+  # comment out lines below if your league is public
   click_link('Log In')
   within('.global-user-container') do
     click_link('Log In')
