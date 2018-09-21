@@ -26,3 +26,5 @@ This spec does not schedule execution on its own. It is recommended that you run
 * Start a program: `C:\Ruby22-x64\bin\rspec.bat`
 * With arguments: `spec\yahoo\add_free_agent.rb > free-agent-sleeper.log`
 * Start in: `<root directory of repo>`
+
+Discussion: [Old reddit thread](https://www.reddit.com/r/fantasyfootball/comments/747t7d/i_wrote_a_thing_that_helps_you_automatically_pick/)
