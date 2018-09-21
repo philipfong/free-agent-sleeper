@@ -10,7 +10,7 @@ def login_espn(username, password)
     find('input[type="password"][placeholder="Password (case sensitive)"]').set(password)
     click_button('Log In')
     page.should_not have_css('.loading-indicator')
-  end  
+  end
 end
 
 def add_drop(free_agent, droppable)
@@ -36,8 +36,11 @@ end
 feature "Add free agents to Fantasy Football league" do
 
   background do
-    visit ESPN_PLAYERS
+    visit 'http://espn.com/fantasy/football'
+    find('#global-user-trigger').hover
+    find('.account-management').click_link('Log In')
     login_espn(ESPN_USERNAME, ESPN_PASSWORD)
+    visit ESPN_PLAYERS
   end
 
   after(:each) do
