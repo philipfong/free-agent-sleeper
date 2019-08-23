@@ -7,6 +7,7 @@
 require 'capybara/rspec'
 require 'selenium-webdriver'
 require 'rspec/repeat'
+require 'webdrivers'
 
 Capybara.run_server = false
 Capybara.default_max_wait_time = 10
@@ -26,8 +27,4 @@ RSpec.configure do |config|
   end
 end
 
-Capybara.register_driver :chrome do |app|
-  Capybara::Selenium::Driver.new(app, :browser => :chrome)
-end
-
-Capybara.default_driver = :chrome
+Capybara.default_driver = :selenium_chrome
