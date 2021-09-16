@@ -17,7 +17,8 @@ end
 def add_drop(free_agent, abbrev, droppable)
   find('#playersearchtext').set(free_agent)
   sleep 5 # Sometimes, the autocomplete dropdown interferes with clicking the Search button, so we wait a little
-  click_button('Search')
+  # click_button('Search') # commented out because appears to be broken
+  find('input.Va-bot').click
   page.should have_css('.First.Last', :count => 1)
   if page.has_link?(free_agent) && page.has_link?('Add Player')
     click_link('Add Player')
@@ -26,7 +27,7 @@ def add_drop(free_agent, abbrev, droppable)
     if page.has_css?('#submit-add-drop-button[value^="Create claim"]')
       puts 'Waivers have not cleared'
     else
-      find('#submit-add-drop-button[value="Add %s, Drop %s"]' % [free_agent, droppable]).click
+      find('#submit-add-drop-button,[value="Add %s, Drop %s"]' % [free_agent, droppable]).click
       puts 'Congratulations! %s was added.' % free_agent
       sleep 10
     end
@@ -47,12 +48,12 @@ feature "Add free agents to Fantasy Football league" do
   end
 
   scenario "Log in and add/drop player" do
-    add_drop('Robby Anderson', 'A. Kamara', 'Alvin Kamara') # Replace with players you want to add and drop
+    add_drop('Joey Slye', 'J. Sanders', 'Jason Sanders') # Replace with players you want to add and drop
     # Do not insert additional calls to add_drop() -- Create new scenarios for more players
   end
 
-  scenario "Log in and add/drop another player" do
-    add_drop('Terrance West', 'W. Gallman', 'Wayne Gallman') # Replace with players you want to add and drop
-  end
+  # scenario "Log in and add/drop another player" do
+  #   add_drop('Terrance West', 'W. Gallman', 'Wayne Gallman') # Replace with players you want to add and drop
+  # end
 
 end
