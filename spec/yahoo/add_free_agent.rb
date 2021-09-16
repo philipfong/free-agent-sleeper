@@ -16,11 +16,11 @@ end
 
 def add_drop(free_agent, abbrev, droppable)
   find('#playersearchtext').set(free_agent)
-  sleep 10 # Sometimes, the autocomplete dropdown interferes with clicking the Search button, so we wait a little
+  sleep 5 # Sometimes, the autocomplete dropdown interferes with clicking the Search button, so we wait a little
   # click_button('Search') # commented out because appears to be broken
   find('input.Va-bot').click
   page.should have_css('.First.Last', :count => 1)
-  if page.has_link?('Add Player')
+  if page.has_link?(free_agent) && page.has_link?('Add Player')
     click_link('Add Player')
     page.should have_text('Select a player to drop')
     find('td.player', :text => abbrev).find(:xpath, '..').find('button.add-drop-trigger-btn').click
@@ -48,7 +48,7 @@ feature "Add free agents to Fantasy Football league" do
   end
 
   scenario "Log in and add/drop player" do
-    add_drop('Jason Sanders', 'R. Gould', 'Robby Gould') # Replace with players you want to add and drop
+    add_drop('Joey Slye', 'J. Sanders', 'Jason Sanders') # Replace with players you want to add and drop
     # Do not insert additional calls to add_drop() -- Create new scenarios for more players
   end
 
